@@ -1,5 +1,19 @@
 <?php
+if(isset($_SESSION['userID'])){
+    $userr=$user->get_user_info($_SESSION['userID']);
+    print_r($userr);
+}
 $product_shuffle = $product->getData();
+shuffle($product_shuffle);
+if($_SERVER['REQUEST_METHOD']=="POST"){
+
+        $Cart->addToCart($_POST['id_user'], $_POST['id_produit'], $_POST['id_fab']);
+
+
+
+
+
+}
 ?>
 <section id="top-sale">
     <div class="container py-5">
@@ -23,7 +37,20 @@ $product_shuffle = $product->getData();
                         <div class="price py-2">
                             <span><?php echo $item['Prix_produit'] ?? '0'; ?></span>DT
                         </div>
-                        <button type="submit" class="btn color-primaryalt-bg font-size-14 text-white font-Roboto">Ajouter au panier</button>
+                        <form method="post">
+                            <input type="hidden" name="id_produit" value="<?php echo $item['id_produit'] ?? '0' ?>">
+                            <input type="hidden" name="id_user" value="<?php echo $userr['id_user'];?>">
+                            <input type="hidden" name="id_fab" value="<?php echo $item['id_fab'] ?? '0' ?>">
+                            <?php
+                            if(in_array($item['id_produit'],$Cart->getCartid($product->getData2("panier"))??[])){
+                                echo  '<button type="submit" disabled class="btn color-secondalt-bg font-size-14 text-white font-Roboto">Dans le panier</button>';
+
+                            }else{
+                                echo  '<button type="submit" name="top_sale_submit" class="btn color-primaryalt-bg font-size-14 text-white font-Roboto">Ajouter au panier</button>';
+                            }
+                            ?>
+
+                        </form>
                     </div>
                 </div>
             </div>

@@ -42,9 +42,9 @@ foreach ($z1->getFab() as $item):
                 <div class="qty px-4 font-Roboto font-size-24 d-flex">
                     <h3>Quantité:</h3>
                     <div class="px-4 d-flex font-Nanum">
-                        <button class="qty-up border color-secondalt-bg text-white" data-id="prod"><i class="fa-solid fa-chevron-up"></i></button>
-                        <input type="text" class="qty_input border px-2 w-50 bg-light" data-id="prod" disabled value="1" placeholder="1">
-                        <button class="qty-down border color-secondalt-bg text-white" data-id="prod"><i class="fa-solid fa-chevron-down"></i></button>
+                        <button class="qty-up border color-secondalt-bg text-white" data-id="<?php $item['id_produit']; ?>"><i class="fa-solid fa-chevron-up"></i></button>
+                        <input type="text" class="qty_input border px-2 w-50 bg-light" data-id="<?php $item['id_produit']; ?>" disabled value="1" placeholder="1">
+                        <button class="qty-down border color-secondalt-bg text-white" data-id="<?php $item['id_produit']; ?>"><i class="fa-solid fa-chevron-down"></i></button>
                     </div>
                 </div>
                 <button type="button" class="border-0 px-2 color-secondalt-bg text-white font-Roboto m-4 font-size-24">Ajouter au panier</button>

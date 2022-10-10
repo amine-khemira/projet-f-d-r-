@@ -1,11 +1,18 @@
 <?php
 $product_shuffle = $product->getData();
+if($_SERVER['REQUEST_METHOD']=="POST"){
+    $Cart->addToCart($_POST['id_user'],$_POST['id_produit'],$_POST['id_fab']);
+
+
+
+
+}
 ?>
 
 <section id="catalogue">
     <div class="container p-2">
         <div class="grid">
-            <?php array_map(function($item){ ?>
+            <?php foreach ($product_shuffle as $item):?>
             <div class="grid-item border <?php echo $item['categorie'];?>">
                 <div class="item" style="width: 200px;">
                     <div class="product font-Roboto">
@@ -22,12 +29,25 @@ $product_shuffle = $product->getData();
                             <div class="price py-2">
                                 <span><?php echo $item['Prix_produit'] ?? '0'; ?></span>DT
                             </div>
-                            <button type="submit" class="btn color-primaryalt-bg font-size-14 text-white font-Roboto">Ajouter au panier</button>
+                            <form method="post">
+                                <input type="hidden" name="id_produit" value="<?php echo $item['id_produit'] ?? '0' ?>">
+                                <input type="hidden" name="id_user" value="<?php echo $_SESSION["userID"];?>">
+                                <input type="hidden" name="id_fab" value="<?php echo $item['id_fab'] ?? '0' ?>">
+                                <?php
+                                if(in_array($item['id_produit'],$Cart->getCartid($product->getData("panier"))??[])){
+                                    echo  '<button type="submit" disabled class="btn color-secondalt-bg font-size-14 text-white font-Roboto">Dans le panier</button>';
+
+                                }else{
+                                    echo  '<button type="submit" name="top_sale_submit" class="btn color-primaryalt-bg font-size-14 text-white font-Roboto">Ajouter au panier</button>';
+                                }
+                                ?>
+
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <?php },$product_shuffle)?>
+            <?php endforeach;?>
         </div>
     </div>
 </section>
