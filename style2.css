@@ -1,0 +1,19 @@
+table{
+    font-size: 24px;
+
+    border-collapse: collapse;
+}
+th{
+    background-color: #dc8168;
+    margin: 0px;
+}
+td{
+    padding: 10px;
+}
+#impaire{
+    background-color: #e5d0ba;
+}
+#pair{
+
+    background-color: #76afa4;
+}

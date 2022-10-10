@@ -1,4 +1,8 @@
 <?php
+session_start();
+
+ob_start();
+require ('security.php');
   //include header.php
 include ('header.php');
 ?>

@@ -5,8 +5,7 @@ include ('security.php');
 include ('header.php');
 ?>
 <?php
-include('Template/_prod.php');
-include('Template/_top-sale.php');
+include ('Template/_useracc.php');
 ?>
 <?php
 //include Footer.php

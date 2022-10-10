@@ -1,14 +1,16 @@
 <?php
 session_start();
-include ('security.php');
 //include header.php
+include ('security.php');
 include ('header.php');
 ?>
 <?php
-include('Template/_prod.php');
-include('Template/_top-sale.php');
+include('Template/_listfab.php');
+
 ?>
 <?php
+
 //include Footer.php
-include ('Footer.php')
+include('Footer.php')
+
 ?>

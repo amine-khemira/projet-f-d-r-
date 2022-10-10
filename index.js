@@ -59,29 +59,80 @@ $(document).ready(function(){
         var filterValue=$(this).attr('data-filter');
         $grid.isotope({filter:filterValue});
     })
-    
+
     let $qty_up=$(".qty .qty-up");
     let $qty_down=$(".qty .qty-down");
-    //let $input= $(".qty .qty_input");
-    
-    $qty_up.on("click",function(e){
+    let $qty=1;
+    let $deal_price=$('#deal_price');
+
+
+    $qty_up.click(function(e){
+
+
+        //ajax
         let $input=$(`.qty_input[data-id='${$(this).data("id")}']`);
-        if($input.val()>=1 && $input.val()<=9){
-            $input.val(function(i,oldval){
-                return ++oldval;
-            })
-        };
+        let $price=$(`.product_price[data-id='${$(this).data("id")}']`);
+
+
+        $.ajax({url:"template/ajax.php",type:'post',data:{id_item:$(this).data("id")},success:function (result){
+            console.log(result);
+            let obj = JSON.parse(result);
+            let item_price=obj[0]['Prix_produit'];
+                if($input.val()>=1 && $input.val()<=9){
+                    $input.val(function(i,oldval){
+                        return ++oldval;
+                    })
+                };
+                $price.text(parseInt(item_price*$input.val()).toFixed(2));
+
+                let subtotal = parseInt($deal_price.text())+parseInt(item_price);
+                $deal_price.text(subtotal.toFixed(2));
+            }})
+        return $qty=$input.val();
 
     });
     $qty_down.on("click",function(e){
         let $input=$(`.qty_input[data-id='${$(this).data("id")}']`);
-        if($input.val()>1 && $input.val()<=10){
-            $input.val(function(i,oldval){
-                return --oldval;
-            })
-        };
+        let $price=$(`.product_price[data-id='${$(this).data("id")}']`);
 
+
+        $.ajax({url:"template/ajax.php",type:'post',data:{id_item:$(this).data("id")},success:function (result){
+                let obj = JSON.parse(result);
+                let item_price=obj[0]['Prix_produit'];
+                if($input.val()>1 && $input.val()<=10){
+                    $input.val(function(i,oldval){
+                        return --oldval;
+                    })
+                };
+                $price.text(parseInt(item_price*$input.val()).toFixed(2));
+
+                let subtotal = parseInt($deal_price.text())-parseInt(item_price);
+                $deal_price.text(subtotal.toFixed(2));
+            }})
+
+        return $qty=$input.val();
     });
 
+     $("#confirmer").click(function (){
+
+         $.post({url:"ajax.php",type:'post',data:{action:$(this).val()},success:function (result){
+             console.log(result);
+             alert("Commande passer avec succé !!");
+                 return result;
+             }})
+     });
+
+     $("#reg-form").submit(function(event){
+         let $password=$("#password");
+
+     })
+    // $("#logout").click(function (){
+    //
+    //     $.post({url:"logout.php",type:'post',data:{action:$(this).val()},success:function (result){
+    //             console.log(result);
+    //             alert("Commande passer avec succé !!");
+    //             return result;
+    //         }})
+    // });
 
 });

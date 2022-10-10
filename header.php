@@ -15,7 +15,10 @@
     <!--css-->
     <link rel="stylesheet" href="style.css">
     <?php
-    require ('functions.php');
+
+    //require ('functions.php');
+    include ('functions.php');
+
     ?>
 </head>
 <body>
@@ -23,12 +26,25 @@
 <header id="header">
     <div class="strip d-flex justify-content-between px-4 py-1 color-primaryalt-bg">
         <div class="font-Nanum font-size-12 .float-right">
-            <a href="#"><button type="button" class="btn color-primary-bg text-white"><span><i class="fa-solid text-white fa-user"></i></span> Log in</button></a>
-            <a href="#"><button type="button" class="btn color-primary-bg text-white"><span><i class="fa-solid text-white fa-user-plus"></i></span> Sign up</button></a>
+            <?php
+                 if(isset($_SESSION['userID'])){
+                   echo  '<a href="compteuser.php"><button type="button" class="btn color-primary-bg text-white"><span><i class="fa-solid fa-id-card"></i></span> Espace client</button></a>
+            <a href="logout.php"><button type="submit" id="logout" class="btn color-primary-bg text-white"><span><i class="fa-solid fa-arrow-right-from-bracket"></i></span> Se déconnecter</button></a>';
+
+                 }else{
+                     echo '<a href="login.php"><button type="button" class="btn color-primary-bg text-white"><span><i class="fa-solid text-white fa-user"></i></span> Log in</button></a>
+            <a href="signin.php"><button type="button" class="btn color-primary-bg text-white"><span><i class="fa-solid text-white fa-user-plus"></i></span> Sign up</button></a>';
+
+                 }
+                 if($_SESSION['userID']==16 or $_SESSION['userID']==20 ){
+                     echo  '<a href="admin.php"><button type="button" class="btn color-primary-bg text-white mx-1"><span><i class="fa-solid fa-address-book"></i></span> Espace Artisant</button></a>';
+                 }
+            ?>
+
         </div>
     </div>
     <!--primary nav-->
-    <nav class="navbar navbar-expand-lg navbar-dark color-primary-bg">
+    <nav class="navbar navbar-expand-lg navbar-dark color-primary-bg shadow">
         <div class="container-fluid">
             <a class="navbar-brand p-0 font-size-24 font-Abril" href="#">Artisanat</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,10 +53,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 m-auto font-Serif font-size-18">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                        <a class="nav-link active" aria-current="page" href="index.php">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Artisans </a>
+                        <a class="nav-link" href="listfab.php">Artisans </a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -52,7 +68,7 @@
                             <li><a class="dropdown-item" href="#">Bijoux</a></li>
                             <li><a class="dropdown-item" href="#">Produit du tiroire</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Catalogue</a></li>
+                            <li><a class="dropdown-item" href="catalogue.php">Catalogue</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -63,10 +79,10 @@
                     </li>
 
                 </ul>
-                <form action="#" class="font-size-14 font-Roboto">
-                    <a href="#" class="py-2 rounded-pill color-primaryalt-bg">
+                <form action="panier.php" class="font-size-14 font-Roboto">
+                    <a href="panier.php" class="py-2 rounded-pill color-primaryalt-bg">
                         <span class="font-size-18 px-2 text-white"><i class="fa-solid fa-basket-shopping"></i></span>
-                        <span class="px-3 py-2 rounded-pill text-dark bg-light">0</span>
+                        <span class="px-3 py-2 rounded-pill text-dark bg-light"><?php echo isset($_SESSION['userID']) ? count($product->getData2("panier")) : 0 ; ?> </span>
                     </a>
                 </form>
 

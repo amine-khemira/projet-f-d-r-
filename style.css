@@ -117,5 +117,9 @@ button, button:focus {
     margin-right: -4rem;
     padding: 0 1rem;
 }
+#voir :hover{
+    opacity: 1;
+}
+
 
 /*# sourceMappingURL=style.css.map */
